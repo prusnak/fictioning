@@ -1,7 +1,54 @@
-<html>
-<form action="submit" method="post" enctype="multipart/form-data">
-<input name="job_label">
-<input name="initial_file" type="file">
-<input type="submit">
-</form>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+      <form action="submit" method="post" enctype="multipart/form-data">
+
+        <div class="row">
+
+          <div class="mb-3">
+            <label for="team" class="form-label">Team: (required)</label>
+            <input class="form-control" id="team" name="team" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="textprompt" class="form-label">Text Prompt: (required)</label>
+            <input class="form-control" id="textprompt" name="textprompt" required>
+          </div>
+
+          <!--
+          <div class="mb-3">
+            <label for="imageprompt" class="form-label">Image Prompt (optional)</label>
+            <input type="file" class="form-control" id="imageprompt" name="imageprompt">
+          </div>
+          -->
+
+          <div class="mb-3">
+            <label for="initimage" class="form-label">Initial Image: (optional)</label>
+            <input type="file" class="form-control" id="initimage" name="initimage">
+          </div>
+
+          <div class="mb-3">
+            <label for="iterations" class="form-label">Iterations:</label>
+            <select class="form-select" id="iterations" name="iterations">
+              <option value="100">100</option>
+              <option value="200" selected>200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500">500</option>
+            </select>
+          </div>
+
+          <!--
+          <div class="mb-3">
+            <label for="model" class="form-label">Model:</label>
+            <select class="form-select" id="model" name="model">
+              <option value="ViT-B/16">ViT-B/16</option>
+              <option value="ViT-B/32" selected>ViT-B/32</option>
+            </select>
+          </div>
+          -->
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+{% endblock %}

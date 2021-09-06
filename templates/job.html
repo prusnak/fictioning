@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+      <div class="row">
+        <div class="col">
+          <h2>Job <a href="">{{ id }}</a></h2>
+          <p>Status: {{ status }}</p>
+          <p>Team: {{ team }}</p>
+          <p>Text Prompt: {{ textprompt }}</p>
+          {% if initimage %}
+          <p>Initial Image:</p>
+          <p><img src="{{ '%s/initimage.png' % id }}" width="512" height="512"></p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="row">
+        {% for i in range(50, iterations + 50, 50) %}
+        <div class="col">
+          <h4>Iteration {{ i }}</h4>
+          <img src="{{ '%s/%03d.png' % (id, i) }}">
+        </div>
+        {% endfor %}
+      </div>
+{% endblock %}

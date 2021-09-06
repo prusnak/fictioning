@@ -1,0 +1,54 @@
+html, 
+body {
+    height: 100%;
+    color: #5d2897;
+}
+
+a {
+    color: #5d2897;
+}
+
+a:hover, a:active {
+    color: #753eaf;
+}
+
+body {
+    background: url("background.jpg");
+    background-size: 100% 100%;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: 'Source Code Pro', monospace;
+}
+
+h1 {
+    background-image: url("typo.png");
+    background-size: 100% 100%;
+    display: block;
+    width: 512px !important;
+    height: 360px;
+    text-indent: -3333px;
+}
+
+h4 {
+    padding-top: 32px;
+}
+
+.btn-primary {
+    background-color: #753eaf;
+    border-color: #753eaf;
+}
+
+.btn-primary:hover, .btn-primary:active{
+    background-color: #5d2897;
+    border-color: #5d2897;
+}
+
+.form-control, .form-select {
+    color: #5d2897;
+}
+
+#footer {
+  padding-top: 30px;
+  margin: 40px;
+  text-align: center;
+}
