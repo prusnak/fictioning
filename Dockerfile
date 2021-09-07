@@ -16,6 +16,9 @@ COPY VQGAN-CLIP/requirements.txt /tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt
 RUN pip install Flask gunicorn
 
+RUN apt-get update
+RUN apt-get install -y tmux
+
 WORKDIR /workspace
 
 RUN rm -rf /root/.cache && ln -sf /workspace/.cache /root/.cache
