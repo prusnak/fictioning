@@ -4,11 +4,17 @@ if [ -z "$1" ] ; then
   exit 1
 fi
 
-jobid=$1
-jobdir=jobs/$jobid
+jobid="$1"
+jobdir="jobs/$jobid"
 
-# ls $jobdir
-# iterations=$(cat $jobdir/iterations.txt)
+iterations=$(cat "$jobdir/iterations.txt")
+textprompt=$(cat "$jobdir/textprompt.txt")
+
+if [ -f "$jobdir/initimage.png" ]; then
+  initimage="$jobdir/initimage.png"
+else
+  initimage=""
+fi
 
 echo -n "working (10 %)" > $jobdir/status.txt
 sleep 1
