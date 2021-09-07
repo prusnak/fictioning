@@ -11,20 +11,17 @@ iterations=$(cat "$jobdir/iterations.txt")
 textprompt=$(cat "$jobdir/textprompt.txt")
 
 if [ -f "$jobdir/initimage.png" ]; then
-  initimage="$jobdir/initimage.png"
+  initimage="-ii ../$jobdir/initimage.png"
 else
   initimage=""
 fi
 
-echo -n "working (10 %)" > $jobdir/status.txt
-sleep 1
-echo -n "working (20 %)" > $jobdir/status.txt
-sleep 1
-echo -n "working (40 %)" > $jobdir/status.txt
-sleep 1
-echo -n "working (80 %)" > $jobdir/status.txt
-sleep 1
-echo -n "working (100 %)" > $jobdir/status.txt
-sleep 1
+echo -n "processing" > $jobdir/status.txt
+
+pushd VQGAN-CLIP
+
+python3 generate.py -i "$iterations" -p "$textprompt" $initimage -o "../$jobdir/%03d.png"
+
+popd
 
 echo -n "done" > $jobdir/status.txt
