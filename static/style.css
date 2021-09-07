@@ -1,4 +1,4 @@
-html, 
+html,
 body {
     height: 100%;
     color: #5d2897;
@@ -20,7 +20,7 @@ body {
     font-family: 'Source Code Pro', monospace;
 }
 
-h1 {
+#title {
     background-image: url("typo.png");
     background-size: 100% 100%;
     display: block;
