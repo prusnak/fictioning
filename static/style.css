@@ -48,7 +48,12 @@ h4 {
 }
 
 #footer {
-  padding-top: 30px;
+  padding-top: 20px;
   margin: 40px;
   text-align: center;
+  font-size: 90%;
+}
+
+#footer .small {
+    font-size: 75%;
 }
