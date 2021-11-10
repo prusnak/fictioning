@@ -31,4 +31,4 @@ while True:
         print("%s [%s]" % (j, status))
 
     print()
-    time.sleep(10)
+    time.sleep(5)
