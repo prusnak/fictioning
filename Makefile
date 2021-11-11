@@ -9,7 +9,7 @@ dev:
 	FLASK_ENV=development FLASK_APP=server flask run
 
 prod:
-	gunicorn --bind 0.0.0.0:5000 --workers 5 --timeout 240 wsgi:app
+	gunicorn --bind 0.0.0.0:8080 --workers 5 --timeout 240 wsgi:app
 
 schedule:
 	python3 scheduler.py
