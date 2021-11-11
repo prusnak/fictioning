@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+      <div class="row justify-content-center">
+        <h1 id="title">Scrying through AI</h1>
+      </div>
+
       <div class="row">
         <div class="col">
           <h2>Job <a href="">{{ id }}</a></h2>
@@ -25,7 +30,10 @@
 
     <div class="row justify-content-center">
       <div id="footer">
-        <a href="/">Again</a>
+
+      <a href="../reflect"><button type="submit" class="btn btn-primary">Next</button></a>
+
       </div>
+    </div>
 
 {% endblock %}

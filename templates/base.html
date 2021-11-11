@@ -7,20 +7,14 @@
     <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='font.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Fictioning Synthetic Reality</title>
+    <title>Scrying through AI</title>
     {% if refresh %}
     <meta http-equiv="refresh" content="10">
     {% endif %}
   </head>
   <body>
     <div class="container">
-      <div class="row justify-content-center">
-        <h1 id="title">Fictioning Synthetic Reality</h1>
-      </div>
-
       {% block content %}{% endblock %}
-
-      </div>
     </div>
   </body>
 </html>

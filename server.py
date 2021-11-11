@@ -24,6 +24,9 @@ def get_job_dir(id):
 def index():
     return render_template("index.html")
 
+@app.route("/reflect")
+def reflect():
+    return render_template("reflect.html")
 
 @app.route("/submit", methods=["POST"])
 def submit():

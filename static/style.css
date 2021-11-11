@@ -29,6 +29,15 @@ body {
     text-indent: -3333px;
 }
 
+#title_reflect {
+    background-image: url("typo_reflect.png");
+    background-size: 100% 100%;
+    display: block;
+    width: 512px !important;
+    height: 512px;
+    text-indent: -3333px;
+}
+
 h4 {
     padding-top: 32px;
 }
