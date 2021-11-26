@@ -20,4 +20,4 @@ build:
 	docker build -t $(DOCKER_IMAGE) .
 
 run:
-	docker run -p 8080:8080 --rm -it --gpus all --shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864 -v $(shell pwd):/workspace $(DOCKER_IMAGE) /bin/bash
+	docker run -p 8080:8080 --rm -it --gpus all --shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864 -v $(shell pwd):/workspace $(DOCKER_IMAGE) /usr/bin/tmux
