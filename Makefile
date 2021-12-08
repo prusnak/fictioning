@@ -1,6 +1,7 @@
 all:
-	@echo "flask  : server | dev | prod"
 	@echo "docker : build | run"
+	@echo "flask  : server | dev | prod"
+	@echo "sched  : sched"
 
 server:
 	FLASK_APP=server flask run
@@ -11,7 +12,7 @@ dev:
 prod:
 	gunicorn --bind 0.0.0.0:8080 --workers 5 --timeout 240 wsgi:app
 
-schedule:
+sched:
 	python3 scheduler.py
 
 DOCKER_IMAGE=fictioning

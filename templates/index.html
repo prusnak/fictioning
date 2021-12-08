@@ -12,7 +12,7 @@
 
           <div class="mb-3">
             <label for="team" class="form-label">Team: (required)</label>
-            <input class="form-control" id="team" name="team" required>
+            <input class="form-control" id="team" name="team" required value="{{ team }}">
           </div>
 
           <div class="mb-3">
@@ -27,10 +27,36 @@
           </div>
           -->
 
+          {% if custom_init_image %}
+
           <div class="mb-3">
             <label for="initimage" class="form-label">Initial Image: (optional)</label>
             <input type="file" class="form-control" id="initimage" name="initimage">
           </div>
+
+          {% endif %}
+
+          {% if last_jobid and iterations %}
+
+          <div class="mb-3">
+            <label for="initimage" class="form-label">Initial Image:</label>
+          </div>
+
+          <div class="mb-3">
+            {% for i in range(50, iterations + 50, 50) %}
+              <img src="{{ 'job/%s/%03d.png' % (last_jobid, i) }}" width="192" height="192">
+            {% endfor %}
+          </div>
+
+          <div class="mb-3">
+            <select class="form-select" id="initimage_ref" name="initimage_ref" style="width: 15em;">
+            {% for i in range(50, iterations + 50, 50) %}
+              <option value="{{ '%s/%03d.png' % (last_jobid, i) }}"{{ ' selected' if i == iterations else '' }}>iteration {{ i }}</option>
+            {% endfor %}
+            </select>
+          </div>
+
+          {% endif %}
 
           <div class="mb-3">
             <label for="iterations" class="form-label">Iterations:</label>

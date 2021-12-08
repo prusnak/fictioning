@@ -7,6 +7,7 @@ from flask import (
     url_for,
     request,
     send_from_directory,
+    make_response,
 )
 
 app = Flask(__name__)
@@ -20,13 +21,56 @@ def get_job_dir(id):
     return "jobs/%s" % id
 
 
+def get_mode():
+    try:
+        return open("mode.txt", "rt").read()
+    except:
+        return "freestyle"
+
+
 @app.route("/")
 def index():
-    return render_template("index.html")
+    mode = get_mode()
+    if mode == "freestyle":
+        custom_init_image = True
+        last_jobid = None
+        iterations = None
+    else:
+        custom_init_image = False
+        try:
+            last_jobid = request.cookies.get("last_jobid")
+            if last_jobid is not None:
+                job_dir = get_job_dir(last_jobid)
+                iterations = int(open(job_dir + "/iterations.txt", "rt").read())
+            else:
+                last_jobid = None
+                iterations = None
+        except:
+            custom_init_image = True
+            last_jobid = None
+            iterations = None
+
+    team = request.cookies.get("team", "")
+
+    return render_template(
+        "index.html",
+        custom_init_image=custom_init_image,
+        last_jobid=last_jobid,
+        iterations=iterations,
+        team=team,
+    )
+
 
 @app.route("/reflect")
 def reflect():
     return render_template("reflect.html")
+
+
+@app.route("/mode/<mode>")
+def mode_workshop(mode):
+    open("mode.txt", "wt").write(mode)
+    return "mode=%s" % mode
+
 
 @app.route("/submit", methods=["POST"])
 def submit():
@@ -36,7 +80,14 @@ def submit():
     team = request.form["team"]
     textprompt = request.form["textprompt"]
     # imageprompt = request.files["imageprompt"]
-    initimage = request.files["initimage"]
+    try:
+        initimage = request.files["initimage"]
+    except:
+        initimage = None
+    try:
+        initimage_ref = request.form["initimage_ref"]
+    except:
+        initimage_ref = None
     iterations = request.form["iterations"]
     # model = request.form["model"]
 
@@ -48,6 +99,8 @@ def submit():
     #     imageprompt.save(job_dir + "/imageprompt.png")
     if initimage:
         initimage.save(job_dir + "/initimage.png")
+    elif initimage_ref:
+        copyfile(job_dir + '/../' + initimage_ref, job_dir + "/initimage.png")
     open(job_dir + "/iterations.txt", "wt").write(iterations)
     for i in range(50, int(iterations) + 50, 50):
         copyfile("static/blank.png", job_dir + "/%03d.png" % i)
@@ -75,14 +128,21 @@ def show_job(id):
 
     refresh = status != "done"
 
-    return render_template(
-        "job.html",
-        id=id,
-        refresh=refresh,
-        status=status,
-        team=team,
-        textprompt=textprompt,
-        imageprompt=imageprompt,
-        initimage=initimage,
-        iterations=iterations,
+    resp = make_response(
+        render_template(
+            "job.html",
+            id=id,
+            refresh=refresh,
+            status=status,
+            team=team,
+            textprompt=textprompt,
+            imageprompt=imageprompt,
+            initimage=initimage,
+            iterations=iterations,
+        )
     )
+
+    resp.set_cookie("team", team)
+    resp.set_cookie("last_jobid", id)
+
+    return resp
