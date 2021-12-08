@@ -25,6 +25,7 @@ run:
 	docker run -p 8080:8080 --rm -it --gpus all --shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864 -v $(shell pwd):/workspace $(DOCKER_IMAGE) /usr/bin/tmux
 
 prepare:
+	mkdir -p .cache jobs
 	git submodule update --init
 	cd VQGAN-CLIP ; patch -p1 < ../patches/vqgan-clip.patch
 	cd VQGAN-CLIP ; git clone https://github.com/openai/CLIP

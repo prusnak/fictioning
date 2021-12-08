@@ -15,13 +15,15 @@ def schedule(jobid):
 
 
 while True:
-    # first item is .gitignore, let's skip
-    jobs = sorted(os.listdir("jobs"))[1:]
+    jobs = sorted(os.listdir("jobs"))
     running = 0
 
     for j in jobs:
         jobdir = "jobs/" + j
-        status = open(jobdir + "/status.txt", "rt").read()
+        try:
+            status = open(jobdir + "/status.txt", "rt").read()
+        except:
+            continue
         if status not in ["done", "not started yet"]:
             running = 1
         if not running and status == "not started yet":

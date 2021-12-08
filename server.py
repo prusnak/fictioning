@@ -127,6 +127,7 @@ def show_job(id):
     # model = open(job_dir + "/model.txt", "rt").read()
 
     refresh = status != "done"
+    mode = get_mode()
 
     resp = make_response(
         render_template(
@@ -143,6 +144,7 @@ def show_job(id):
     )
 
     resp.set_cookie("team", team)
-    resp.set_cookie("last_jobid", id)
+    if mode != "freestyle":
+        resp.set_cookie("last_jobid", id)
 
     return resp
