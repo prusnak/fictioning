@@ -39,14 +39,13 @@ def index():
         custom_init_image = False
         try:
             last_jobid = request.cookies.get("last_jobid")
-            if last_jobid is not None:
+            if last_jobid:
                 job_dir = get_job_dir(last_jobid)
                 iterations = int(open(job_dir + "/iterations.txt", "rt").read())
             else:
                 last_jobid = None
                 iterations = None
         except:
-            custom_init_image = True
             last_jobid = None
             iterations = None
 
@@ -100,7 +99,7 @@ def submit():
     if initimage:
         initimage.save(job_dir + "/initimage.png")
     elif initimage_ref:
-        copyfile(job_dir + '/../' + initimage_ref, job_dir + "/initimage.png")
+        copyfile(job_dir + "/../" + initimage_ref, job_dir + "/initimage.png")
     open(job_dir + "/iterations.txt", "wt").write(iterations)
     for i in range(50, int(iterations) + 50, 50):
         copyfile("static/blank.png", job_dir + "/%03d.png" % i)
@@ -140,11 +139,11 @@ def show_job(id):
             imageprompt=imageprompt,
             initimage=initimage,
             iterations=iterations,
+            next_link="/" if mode == "freestyle" else "../reflect",
         )
     )
 
     resp.set_cookie("team", team)
-    if mode != "freestyle":
-        resp.set_cookie("last_jobid", id)
+    resp.set_cookie("last_jobid", "" if mode == "freestyle" else id)
 
     return resp
